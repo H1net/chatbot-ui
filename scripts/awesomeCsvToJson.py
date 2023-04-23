@@ -7,7 +7,7 @@ import sys
 def csv_to_json(input_file):
     data = []
 
-    with open(input_file, "r") as csv_file:
+    with open(input_file, "r", encoding="utf-8") as csv_file:
         reader = csv.reader(csv_file)
         for row in reader:
             if len(row) == 2:
@@ -38,7 +38,7 @@ def csv_to_json(input_file):
         }
         output_data["prompts"].append(prompt)
 
-    with open(f"{input_file.split('.')[0]}.json", "w") as json_file:
+    with open(f"{input_file.split('.')[0]}.json", "w", encoding="utf-8") as json_file:
         json.dump(output_data, json_file, indent=2)
 
 if __name__ == "__main__":
