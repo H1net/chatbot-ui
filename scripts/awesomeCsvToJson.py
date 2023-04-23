@@ -5,7 +5,15 @@ import pandas as pd
 import sys
 
 def csv_to_json(input_file):
-    data = pd.read_csv(input_file)
+    data = []
+
+    with open(input_file, "r") as csv_file:
+        reader = csv.reader(csv_file)
+        for row in reader:
+            if len(row) == 2:
+                data.append(row)
+            else:
+                print(f"Warning: Skipping line with incorrect number of fields: {row}")
 
     output_data = {
         "version": 4,
@@ -14,7 +22,7 @@ def csv_to_json(input_file):
         "prompts": []
     }
 
-    for index, row in data.iterrows():
+    for row in data:
         prompt = {
             "id": str(uuid.uuid4()),
             "name": row[0],
